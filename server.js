@@ -32,7 +32,7 @@ myDB(async client => {
   const myDataBase = await client.db('database').collection('users');
 
   app.route('/').get((req, res) => {
-    res.render('index', {
+    res.render('profile', {
       title: 'Connected to Database',
       message: 'Please log in',
       showLogin: true
@@ -44,7 +44,7 @@ myDB(async client => {
   })
 
   app.route('/profile').get(ensureAuthenticated, (req,res) => {
-    res.render('profile');
+    res.render('profile', { username: req.user.username });
   })
 
   passport.use(new LocalStrategy((username, password, done) => {
